@@ -7,6 +7,14 @@ class ClipboardStore: ObservableObject {
 
     @AppStorage("storageDays") var storageDays: Int = 3
 
+    static var imageDirectory: URL {
+        FileManager.default.urls(
+            for: .applicationSupportDirectory, in: .userDomainMask
+        ).first!
+        .appendingPathComponent("ClipboardHistory")
+        .appendingPathComponent("images")
+    }
+
     private let maxItems = 500
     private let baseURL: URL
     private let itemsURL: URL

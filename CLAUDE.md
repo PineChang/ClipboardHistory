@@ -28,6 +28,26 @@ macOS 菜单栏剪贴板历史管理工具。
 4. **简洁第一**：不过度设计，不写未来才需要的代码
 5. **不改无关代码**：每个改动都要能追溯到当前阶段的需求
 6. **每次开发后提交并推送**：每个阶段或子任务完成后，`git add` + `git commit` + `git push`，保持远端同步。提交信息使用约定式格式（feat/fix/chore/docs）。
+7. **每次提交前打包 DMG + Release**：
+
+   ```
+   # 1. Release 构建
+   xcodebuild -project ClipboardHistory.xcodeproj -scheme ClipboardHistory -configuration Release build
+
+   # 2. 打包 DMG
+   APP="路径/Release/ClipboardHistory.app"
+   DMG_DIR="/tmp/ClipboardHistory-dmg"
+   rm -rf "$DMG_DIR"
+   mkdir -p "$DMG_DIR"
+   cp -R "$APP" "$DMG_DIR/"
+   ln -s /Applications "$DMG_DIR/Applications"
+   hdiutil create -volname "历史粘贴App" -srcfolder "$DMG_DIR" -ov -format UDZO /tmp/ClipboardHistory.dmg
+
+   # 3. 创建 Release
+   gh release create v<VERSION> --title "v<VERSION>" --notes "更新内容" /tmp/ClipboardHistory.dmg
+   ```
+
+   版本号规则：阶段完成时递增次版本号（v0.1.0 → v0.2.0 → v0.3.0 …）。
 
 ## 项目结构
 

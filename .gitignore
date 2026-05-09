@@ -1,0 +1,22 @@
+# Swift/Xcode
+.build/
+DerivedData/
+*.xcworkspace
+xcuserdata/
+*.xcuserstate
+
+# SPM
+Packages/
+Package.resolved
+*.xcodeproj/project.xcworkspace/
+
+# macOS
+.DS_Store
+*.app
+
+# Claude
+.claude/
+
+# IDE
+.vscode/
+.idea/
